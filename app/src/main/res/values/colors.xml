@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="orange_primary">#FFC300</color>
+    <color name="test_level_color">#4CC9F0</color>
+    <color name="easy_level_color">#3F37C9</color>
+    <color name="normal_level_color">#560BAD</color>
+    <color name="hard_level_color">#B5179E</color>
 </resources>

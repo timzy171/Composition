@@ -1,3 +1,23 @@
 <resources>
-    <string name="app_name">Composition</string>
+    <string name="app_name" translatable="false">Composition</string>
+    <string name="title">The composition of the number</string>
+    <string name="got_it">Got It</string>
+    <string name="game_rules">Rules of the game: there will be three figures in front of you, two from below and one from above, two of
+        them will contain numbers. It is necessary that the sum of the numbers from the two lower figures be equal to the number
+        in the upper figure. To do this, insert the missing number. \n\n\nExample: there is a number 7 in the upper circle, a question mark
+        in one of the lower ones, and a number 4 in the other. So there should be a number 3 in place of the question mark, because 3 + 4 = 7</string>
+    <string name="choose_level">Choose level</string>
+    <string name="level_test">Test level</string>
+    <string name="level_easy">Easy level</string>
+    <string name="level_normal">Normal level</string>
+    <string name="level_hard">Hard level</string>
+
+    <string name="score_percentage">Percent of right answers: %s</string>
+
+    <string name="game_over">Game Over</string>
+    <string name="score_answers">Your Score: %s</string>
+    <string name="retry">Retry</string>
+    <string name="right_answers">Right answers %s from %s necessary</string>
+    <string name="required_percentage">Necessary right answers percent: %s</string>
+    <string name="required_score">Necessary right answers count: %s</string>
 </resources>
