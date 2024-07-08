@@ -1,11 +1,14 @@
 package com.example.composition.presentation
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.composition.R
 import com.example.composition.databinding.GameFinishedFragmentLayoutBinding
 import com.example.composition.domain.entity.GameResult
 
@@ -36,6 +39,7 @@ class GameFinishedFragment : Fragment() {
         setupUi()
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     private fun setupUi() {
         requireActivity().onBackPressedDispatcher.addCallback(
             viewLifecycleOwner,
@@ -44,6 +48,39 @@ class GameFinishedFragment : Fragment() {
                     retryGame()
                 }
             })
+
+        binding.tvRequiredAnswers.text = getString(
+            R.string.required_score,
+            gameResult.gameSettings.minCountOfRightAnswers.toString()
+        )
+        binding.tvScoreAnswers.text =
+            getString(R.string.score_answers, gameResult.countOfRightAnswers.toString())
+        binding.tvRequiredPercentage.text = getString(
+            R.string.required_percentage,
+            gameResult.gameSettings.minPercentOfRightAnswers.toString()
+        )
+        binding.tvScorePercentage.text = getString(
+            R.string.score_percentage,
+            (gameResult.countOfRightAnswers.toDouble() / gameResult.countOfQuestions.toDouble() * 100).toInt()
+                .toString()
+        )
+
+        if (gameResult.winner) {
+            binding.emojiResult.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_smile
+                )
+            )
+        } else {
+            binding.emojiResult.setImageDrawable(
+                ContextCompat.getDrawable(
+                    requireContext(),
+                    R.drawable.ic_loose
+                )
+            )
+        }
+
 
         binding.buttonRetry.setOnClickListener {
             retryGame()
