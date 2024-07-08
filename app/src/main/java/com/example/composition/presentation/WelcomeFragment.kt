@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.composition.R
 import com.example.composition.databinding.WelcomeFragmentLayoutBinding
 
 class WelcomeFragment : Fragment() {
@@ -20,6 +21,23 @@ class WelcomeFragment : Fragment() {
     ): View {
         _binding = WelcomeFragmentLayoutBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupUi()
+    }
+
+    private fun setupUi() {
+        binding.btnOk.setOnClickListener {
+            launchChooseGameLevelFragment()
+        }
+    }
+
+    private fun launchChooseGameLevelFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .addToBackStack(ChooseLevelFragment.NAME)
+            .replace(R.id.container, ChooseLevelFragment.newInstance()).commit()
     }
 
     override fun onDestroyView() {
