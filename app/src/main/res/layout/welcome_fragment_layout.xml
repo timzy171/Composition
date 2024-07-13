@@ -2,8 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/iv_logo"
@@ -15,39 +15,40 @@
 
     <TextView
         android:id="@+id/tv_title"
-        app:layout_constraintTop_toBottomOf="@+id/iv_logo"
-        app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/title"
-        android:textStyle="bold"
-        android:layout_marginTop="30dp"
-        android:textSize="30sp"
-        android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
 
 
     <TextView
         android:id="@+id/tv_game_rules"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_title"
-        android:paddingTop="30dp"
-        android:textSize="18sp"
-        android:text="@string/game_rules"
         android:paddingStart="15dp"
-        android:paddingEnd="15dp"/>
+        android:paddingTop="30dp"
+        android:paddingEnd="15dp"
+        android:text="@string/game_rules"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_title" />
 
     <Button
         android:id="@+id/btn_ok"
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@color/orange_primary"
+        android:text="@string/got_it"
+        android:textAllCaps="true"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:textAllCaps="true"
-        android:text="@string/got_it"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:backgroundTint="@color/orange_primary"
-        android:layout_marginBottom="5dp"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,16 +5,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.composition.R
 import com.example.composition.databinding.GameFinishedFragmentLayoutBinding
 import com.example.composition.domain.entity.GameResult
 
 class GameFinishedFragment : Fragment() {
 
+    private val args by navArgs<GameFinishedFragmentArgs>()
+
     private lateinit var gameResult: GameResult
+
 
     private var _binding: GameFinishedFragmentLayoutBinding? = null
     private val binding: GameFinishedFragmentLayoutBinding
@@ -31,7 +35,7 @@ class GameFinishedFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parseArgs()
+        gameResult = args.gameResult
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,49 +45,44 @@ class GameFinishedFragment : Fragment() {
 
     @SuppressLint("UseCompatLoadingForDrawables")
     private fun setupUi() {
-        requireActivity().onBackPressedDispatcher.addCallback(
-            viewLifecycleOwner,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    retryGame()
-                }
-            })
-
-        binding.tvRequiredAnswers.text = getString(
-            R.string.required_score,
-            gameResult.gameSettings.minCountOfRightAnswers.toString()
-        )
-        binding.tvScoreAnswers.text =
-            getString(R.string.score_answers, gameResult.countOfRightAnswers.toString())
-        binding.tvRequiredPercentage.text = getString(
-            R.string.required_percentage,
-            gameResult.gameSettings.minPercentOfRightAnswers.toString()
-        )
-        binding.tvScorePercentage.text = getString(
-            R.string.score_percentage,
-            (gameResult.countOfRightAnswers.toDouble() / gameResult.countOfQuestions.toDouble() * 100).toInt()
-                .toString()
-        )
-
-        if (gameResult.winner) {
-            binding.emojiResult.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_smile
-                )
+        with(binding) {
+            tvRequiredAnswers.text = getString(
+                R.string.required_score,
+                gameResult.gameSettings.minCountOfRightAnswers.toString()
             )
-        } else {
-            binding.emojiResult.setImageDrawable(
-                ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.ic_loose
-                )
+
+            tvScoreAnswers.text =
+                getString(R.string.score_answers, gameResult.countOfRightAnswers.toString())
+
+            tvRequiredPercentage.text = getString(
+                R.string.required_percentage,
+                gameResult.gameSettings.minPercentOfRightAnswers.toString()
             )
-        }
 
+            tvScorePercentage.text = getString(
+                R.string.score_percentage,
+                (gameResult.countOfRightAnswers.toDouble() / gameResult.countOfQuestions.toDouble() * 100).toInt()
+                    .toString()
+            )
 
-        binding.buttonRetry.setOnClickListener {
-            retryGame()
+            if (gameResult.winner) {
+                emojiResult.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_smile
+                    )
+                )
+            } else {
+                emojiResult.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        requireContext(),
+                        R.drawable.ic_loose
+                    )
+                )
+            }
+            buttonRetry.setOnClickListener {
+                retryGame()
+            }
         }
     }
 
@@ -92,16 +91,12 @@ class GameFinishedFragment : Fragment() {
         _binding = null
     }
 
-    private fun parseArgs() {
-        gameResult = requireArguments().getSerializable(KEY_GAME_RESULT) as GameResult
-    }
-
     private fun retryGame() {
-        requireActivity().supportFragmentManager.popBackStack(ChooseLevelFragment.NAME, 0)
+        findNavController().popBackStack()
     }
 
     companion object {
-        private const val KEY_GAME_RESULT = "game_result"
+        const val KEY_GAME_RESULT = "game_result"
         fun newInstance(gameResult: GameResult): GameFinishedFragment {
             return GameFinishedFragment().apply {
                 arguments = Bundle().apply {
