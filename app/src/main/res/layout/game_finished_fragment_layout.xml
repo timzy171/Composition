@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light"
-    tools:context=".presentation.GameFinishedFragment"
-    >
+<layout>
+    
+    <data>
+        <variable
+            name="gameResult"
+            type="com.example.composition.domain.entity.GameResult" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/background_light"
+        tools:context=".presentation.GameFinishedFragment"
+        >
 
     <ImageView
         android:id="@+id/emoji_result"
@@ -15,6 +23,7 @@
         android:layout_height="0dp"
         android:layout_margin="48dp"
         android:contentDescription="@string/game_over"
+        app:emojiResult="@{gameResult.winner}"
         app:layout_constraintBottom_toTopOf="@id/tv_required_answers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +36,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/required_score"
         android:textSize="18sp"
+        app:requiredAnswers="@{gameResult.gameSettings.minCountOfRightAnswers}"
         app:layout_constraintBottom_toTopOf="@id/tv_score_answers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,8 +49,8 @@
         android:id="@+id/tv_score_answers"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/score_answers"
         android:textSize="18sp"
+        app:scoreAnswers="@{gameResult.countOfRightAnswers}"
         app:layout_constraintBottom_toTopOf="@id/tv_required_percentage"
         app:layout_constraintEnd_toEndOf="@id/tv_required_answers"
         app:layout_constraintStart_toStartOf="@id/tv_required_answers"
@@ -53,8 +62,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/required_percentage"
         android:textSize="18sp"
+        app:requiredPercentage="@{gameResult.gameSettings.minPercentOfRightAnswers}"
         app:layout_constraintBottom_toTopOf="@id/tv_score_percentage"
         app:layout_constraintEnd_toEndOf="@id/tv_required_answers"
         app:layout_constraintStart_toStartOf="@id/tv_required_answers"
@@ -67,8 +76,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/score_percentage"
         android:textSize="18sp"
+        app:scorePercentage="@{gameResult}"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/tv_required_answers"
         app:layout_constraintStart_toStartOf="@id/tv_required_answers"
@@ -82,7 +91,7 @@
         android:text="@string/retry"
         android:backgroundTint="@color/orange_primary"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        />
+        app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
